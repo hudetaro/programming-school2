@@ -361,6 +361,65 @@
         </div>
     </section>
 
+    <!-- 問い合わせフォームセクション -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">お<span class="text-primary">問い合わせ</span></h2>
+            
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-gray-700 font-medium mb-2">お名前 <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">メールアドレス <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">電話番号</label>
+                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-gray-700 font-medium mb-2">件名 <span class="text-red-500">*</span></label>
+                        <select id="subject" name="subject" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">選択してください</option>
+                            <option value="無料体験について">無料体験について</option>
+                            <option value="料金プランについて">料金プランについて</option>
+                            <option value="カリキュラムについて">カリキュラムについて</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-gray-700 font-medium mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
+                        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="privacy" name="privacy" required class="mt-1 mr-2">
+                        <label for="privacy" class="text-gray-700">プライバシーポリシーに同意します <span class="text-red-500">*</span></label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-blue-800 transition duration-300 shadow-md">送信する</button>
+                    </div>
+                </form>
+                
+                <div id="formSuccess" class="hidden mt-6 p-4 bg-green-100 text-green-700 rounded-md">
+                    お問い合わせありがとうございます。担当者より折り返しご連絡いたします。
+                </div>
+                
+                <div id="formError" class="hidden mt-6 p-4 bg-red-100 text-red-700 rounded-md">
+                    送信中にエラーが発生しました。お手数ですが、再度お試しいただくか、直接メールでお問い合わせください。
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- フッターセクション -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4">
@@ -436,6 +495,37 @@
         document.querySelectorAll('#faq button').forEach(button => {
             const content = button.nextElementSibling;
             content.style.display = 'none';
+        });
+        
+        // お問い合わせフォームの送信処理
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // フォームデータの取得
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                privacy: document.getElementById('privacy').checked
+            };
+            
+            // 通常はここでAPIにデータを送信します
+            // この例ではモックの成功レスポンスを表示します
+            console.log('送信されたデータ:', formData);
+            
+            // 成功メッセージの表示
+            document.getElementById('formSuccess').classList.remove('hidden');
+            document.getElementById('formError').classList.add('hidden');
+            
+            // フォームをリセット
+            this.reset();
+            
+            // 5秒後に成功メッセージを非表示にする
+            setTimeout(() => {
+                document.getElementById('formSuccess').classList.add('hidden');
+            }, 5000);
         });
     </script>
 </body>
